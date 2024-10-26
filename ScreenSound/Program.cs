@@ -2,32 +2,45 @@
 using ScreenSound.Menus;
 using ScreenSound.Modelos;
 
+var context = new ScreenSoundContext();
+
 try
 {
-    var connection = new Connection();
+    MusicaDAL musicaDAL = new MusicaDAL(context);
 
-    var listaArtistas = connection.ListarArtistas();
+    //musicaDAL.AdicionarMusica(new Musica("As It Was"));
+    //musicaDAL.AdicionarMusica(new Musica("Locked out Heaven"));
+    //musicaDAL.AdicionarMusica(new Musica("Músicas de amor nunca mais"));
+    //musicaDAL.AdicionarMusica(new Musica("Música que será excluída"));
 
-    foreach (var artista in listaArtistas)
+    //List<Musica> listaMusicas = musicaDAL.ListarMusicas().ToList();
+
+    //foreach (var musica in listaMusicas)
+    //{
+    //    Console.WriteLine(musica);
+    //}
+
+    Musica musicaExclusa = new Musica("Música que será excluída") { Id = 4 };
+
+    musicaDAL.ExcluiMusica(musicaExclusa);
+
+    List<Musica>  listaMusicas = musicaDAL.ListarMusicas().ToList();
+
+    foreach (var musica in listaMusicas)
     {
-        Console.WriteLine(artista);
+        Console.WriteLine(musica);
     }
 
 }
 catch (Exception exc)
 {
-    Console.WriteLine(exc.Message);
-    throw;
+    Console.WriteLine(exc.ToString());
 }
 
 return;
 
-Artista ira = new Artista("Ira!", "Banda Ira!");
-Artista beatles = new("The Beatles", "Banda The Beatles");
 
-Dictionary<string, Artista> artistasRegistrados = new();
-artistasRegistrados.Add(ira.Nome, ira);
-artistasRegistrados.Add(beatles.Nome, beatles);
+var artistaDAL = new ArtistaDAL(context);
 
 Dictionary<int, Menu> opcoes = new();
 opcoes.Add(1, new MenuRegistrarArtista());
@@ -66,7 +79,7 @@ void ExibirOpcoesDoMenu()
     if (opcoes.ContainsKey(opcaoEscolhidaNumerica))
     {
         Menu menuASerExibido = opcoes[opcaoEscolhidaNumerica];
-        menuASerExibido.Executar(artistasRegistrados);
+        menuASerExibido.Executar(artistaDAL);
         if (opcaoEscolhidaNumerica > 0) ExibirOpcoesDoMenu();
     } 
     else
