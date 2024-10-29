@@ -4,43 +4,7 @@ using ScreenSound.Modelos;
 
 var context = new ScreenSoundContext();
 
-try
-{
-    MusicaDAL musicaDAL = new MusicaDAL(context);
-
-    //musicaDAL.AdicionarMusica(new Musica("As It Was"));
-    //musicaDAL.AdicionarMusica(new Musica("Locked out Heaven"));
-    //musicaDAL.AdicionarMusica(new Musica("Músicas de amor nunca mais"));
-    //musicaDAL.AdicionarMusica(new Musica("Música que será excluída"));
-
-    //List<Musica> listaMusicas = musicaDAL.ListarMusicas().ToList();
-
-    //foreach (var musica in listaMusicas)
-    //{
-    //    Console.WriteLine(musica);
-    //}
-
-    Musica musicaExclusa = new Musica("Música que será excluída") { Id = 4 };
-
-    musicaDAL.ExcluiMusica(musicaExclusa);
-
-    List<Musica>  listaMusicas = musicaDAL.ListarMusicas().ToList();
-
-    foreach (var musica in listaMusicas)
-    {
-        Console.WriteLine(musica);
-    }
-
-}
-catch (Exception exc)
-{
-    Console.WriteLine(exc.ToString());
-}
-
-return;
-
-
-var artistaDAL = new ArtistaDAL(context);
+var artistaDAL = new DAL<Artista>(context);
 
 Dictionary<int, Menu> opcoes = new();
 opcoes.Add(1, new MenuRegistrarArtista());
