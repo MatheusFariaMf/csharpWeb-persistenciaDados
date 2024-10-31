@@ -57,5 +57,11 @@ namespace ScreenSound.DB
         {
             return context.Set<T>().FirstOrDefault(condicao);
         }
+
+        public IList<T>? RecuperarVariosPor(Func<T, bool> condicao)
+        {
+            return context.Set<T>().Where(condicao).ToList();
+        }
+
     }
 }
