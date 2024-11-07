@@ -2,9 +2,10 @@
 
 public class Musica
 {
-    public Musica(string nome)
+    public Musica(string nome, int? anoLancamento)
     {
         Nome = nome;
+        AnoLancamento = anoLancamento;
     }
 
     public string Nome { get; set; }
@@ -15,7 +16,6 @@ public class Musica
     public void ExibirFichaTecnica()
     {
         Console.WriteLine($"Nome: {Nome}");
-      
     }
 
     public override string ToString()
