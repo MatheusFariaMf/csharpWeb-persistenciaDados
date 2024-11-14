@@ -23,9 +23,26 @@ builder.Services.AddTransient<DAL<Genero>>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Adiciona os serviços CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("PermitirBlazor", policy =>
+    {
+        policy.WithOrigins("https://localhost:7131") // Substitua pelo URL da aplicação Blazor
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
+builder.Services.AddControllers();
+
 builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options => options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 var app = builder.Build();
 
+// Ativa o CORS antes de configurar as rotas
+app.UseCors("PermitirBlazor");
+
+app.MapControllers();
 
 app.AddEndPointsArtistas();
 app.AddEndPointsMusicas();
