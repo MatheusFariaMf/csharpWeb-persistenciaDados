@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScreenSound.Shared.Modelos"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScreenSound.Shared.Dados", "ScreenSound.Shared.Dados\ScreenSound.Shared.Dados.csproj", "{8EFC7B90-C7C0-48C9-BDC4-9FB0793B0BFB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScreenSound.Web", "ScreenSound.Web\ScreenSound.Web.csproj", "{0CEA86D9-5689-4D63-8FD7-57C06E81A85A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScreenSound.Web", "ScreenSound.Web\ScreenSound.Web.csproj", "{0CEA86D9-5689-4D63-8FD7-57C06E81A85A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
