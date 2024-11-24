@@ -29,9 +29,23 @@ namespace ScreenSound.API.Endpoints
                 }
             });
 
-            app.MapPost("/Artistas", ([FromServices] DAL<Artista> dal, [FromBody] ArtistaRequest artistaRequest) =>
+            app.MapPost("/Artistas", async ([FromServices]IHostEnvironment env, [FromServices] DAL<Artista> dal, [FromBody] ArtistaRequest artistaRequest) =>
             {
-                var artista = new Artista(artistaRequest.nome, artistaRequest.bio);
+                var nome = artistaRequest.nome.Trim();
+                var imagemArtista = DateTime.Now.ToString("ddMMyyyyhhss") + "." + nome + ".jpeg";
+
+                var path = Path.Combine(env.ContentRootPath,
+                      "wwwroot", "FotosPerfil", imagemArtista);
+
+                using MemoryStream ms = new MemoryStream(Convert.FromBase64String(artistaRequest.fotoPerfil!));
+                using FileStream fs = new(path, FileMode.Create);
+                await ms.CopyToAsync(fs);
+
+                var artista = new Artista(artistaRequest.nome, artistaRequest.bio)
+                {
+                    FotoPerfil = $"/FotoPerfil/{imagemArtista}"
+                };
+
                 dal.Adicionar(artista);
                 return Results.Ok();
             });
@@ -52,7 +66,7 @@ namespace ScreenSound.API.Endpoints
 
             app.MapPut("Artistas", ([FromServices] DAL<Artista> dal, [FromBody] ArtistaRequestEdit artistaRequestEdit) =>
             {
-                Artista? artistaASerAtualizado = dal.RecuperarPor(a => a.Id == artistaRequestEdit.id);
+                Artista? artistaASerAtualizado = dal.RecuperarPor(a => a.Id == artistaRequestEdit.Id);
                 if (artistaASerAtualizado is null)
                     return Results.NotFound();
                 else

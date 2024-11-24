@@ -71,7 +71,7 @@
 
     private async Task Editar()
     {
-        var request = new ArtistaRequestEdit(id!, nome!, biografia!);
+        var request = new ArtistaRequestEdit(id!, nome!, biografia!, "");
         await artistaAPI.EditarArtistaAsync(request);
         navigationManager.NavigateTo("/Artistas");
     }

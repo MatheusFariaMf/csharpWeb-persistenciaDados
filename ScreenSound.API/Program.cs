@@ -44,6 +44,8 @@ app.UseCors("PermitirBlazor");
 
 app.MapControllers();
 
+app.UseStaticFiles();
+
 app.AddEndPointsArtistas();
 app.AddEndPointsMusicas();
 app.AddEndPointsGeneros();
