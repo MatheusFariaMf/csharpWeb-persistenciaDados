@@ -35,7 +35,7 @@ namespace ScreenSound.API.Endpoints
                 var imagemArtista = DateTime.Now.ToString("ddMMyyyyhhss") + "." + nome + ".jpeg";
 
                 var path = Path.Combine(env.ContentRootPath,
-                      "wwwroot", "FotosPerfil", imagemArtista);
+                      "wwwroot", "FotoPerfil", imagemArtista);
 
                 using MemoryStream ms = new MemoryStream(Convert.FromBase64String(artistaRequest.fotoPerfil!));
                 using FileStream fs = new(path, FileMode.Create);
