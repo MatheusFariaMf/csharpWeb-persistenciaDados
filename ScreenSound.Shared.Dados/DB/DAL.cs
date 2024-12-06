@@ -23,6 +23,7 @@ namespace ScreenSound.DB
 
         public void Adicionar(T objeto)
         {
+            Console.WriteLine($"Rcebido o adicionar. Objeto {objeto}");
             context.Set<T>().Add(objeto);
             context.SaveChanges();
         }
