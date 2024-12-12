@@ -7,8 +7,15 @@ using ScreenSound.Modelos;
 using ScreenSound.Shared.Modelos.Modelos;
 using System.Data.SqlTypes;
 using System.Text.Json.Serialization;
+using static System.Net.WebRequestMethods;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.ConfigureAppConfiguration(config =>
+{
+    var settings = config.Build();
+    config.AddAzureAppConfiguration("Endpoint = https://screensound-configuration.azconfig.io;Id=yHmQ;Secret=GGnSXJhwPOvWdDxWHNGDzNA1K3o7Zw3dLZvlYrNpPm9CNnzSZcBGJQQJ99ALACZoyfirtAW7AAACAZAC3ZGW");
+});
 
 // Injeções de dependências
 builder.Services.AddDbContext<ScreenSoundContext>((options) => {

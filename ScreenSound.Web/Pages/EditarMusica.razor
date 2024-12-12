@@ -61,6 +61,12 @@
                 Deletar
             </MudButton>
             <MudButton Variant="Variant.Filled"
+                       Color="Color.Secondary"
+                       @onclick="Editar"
+                       Class="ml-auto">
+                Editar
+            </MudButton>
+            <MudButton Variant="Variant.Filled"
                        Color="Color.Info"
                        @onclick="Voltar"
                        Class="ml-3">
@@ -114,7 +120,7 @@
 
     public async Task Deletar()
     {
-        
+
         await musicaAPI.DeleteMusicaAsync(Musica!.Id);
 
         navigationManager.NavigateTo("/MusicasPorArtista");
@@ -122,6 +128,22 @@
 
     public void Voltar()
     {
+        navigationManager.NavigateTo("/MusicasPorArtista");
+    }
+
+    private List<GeneroRequest> GenerosRequest { get; set; } = new();
+    private async Task Editar()
+    {
+        if (GenerosSelecionados is not null)
+        {
+            foreach (var genero in GenerosSelecionados)
+            {
+                GenerosRequest.Add(new GeneroRequest(genero.Nome, genero.Descricao));
+            }
+        }
+
+        var request = new MusicaRequestEdit(Musica!.Id, nome!, ArtistaDaMusica!.Id, anoLancamento, GenerosRequest);
+        await musicaAPI.UpdateMusicaAsync(request);
         navigationManager.NavigateTo("/MusicasPorArtista");
     }
 }
